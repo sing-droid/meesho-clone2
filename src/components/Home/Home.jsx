@@ -67,7 +67,7 @@ const Home = () => {
           </Link>
         </div>
         <div className={styles.temp}>
-          <Link to="/products">
+          <Link to ="/products">
             <img
               onClick={getMenswares}
               src="https://images.meesho.com/images/marketing/1631611208025.png"
