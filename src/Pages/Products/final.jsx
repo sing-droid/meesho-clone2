@@ -10,7 +10,7 @@ import {
   addDATASuccess,
   setProductData,
 } from "../../store/actions";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/header-footer'/Navbar";
 
 export const Final = () => {
@@ -20,7 +20,7 @@ export const Final = () => {
   const location = useLocation();
   const { text } = location.state;
 
-  console.log("u r in final");
+  console.log(location);
 
   // data = data.data;
   useEffect(() => {
@@ -56,11 +56,13 @@ export const Final = () => {
           }) => (
             <div
               className="productCard"
-              onClick={() => {
-                navigate(`/details/${id}`);
-              }}
+              // onClick={() => {
+              //   navigate(`/details/${id}`);
+              // }}
             >
-              <div key={id} className="card-body text-left">
+              <Link to = {`/details/${id}`} state = {{id : id,tit: title, description:description,price:price,image:image,rating:rating}}> 
+              
+              <div key = {id} className="card-body text-left">
                 <div className="card">
                   <img
                     src={image}
@@ -93,7 +95,7 @@ export const Final = () => {
                     100 disocunt on first order
                   </p>
                 </div>
-
+                
                 <div className="freeDelivery text-center">
                   <div className="badge">
                     <span>Free Delivery</span>
@@ -109,8 +111,11 @@ export const Final = () => {
                     Supplier
                   </p>
                 </div>
+             
               </div>
+              </Link>
             </div>
+            
           )
         )}
       </div>

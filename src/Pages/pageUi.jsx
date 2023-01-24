@@ -6,29 +6,44 @@ import { FaPercentage } from "react-icons/fa";
 import { FaRupeeSign } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/Cart/Action";
 export const PageUi = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const dispatch = useDispatch();
-  const data = useSelector((state) => ({
-    data: state.addDataReducer.productData,
-  }));
+  // const data = useSelector((state) => ({
+  //   data: state.addDataReducer.productData,
+  // }));
+const location = useLocation();
+console.log(location);
+const {id ,tit,price, description, image , rating } = location.state;
+  // let newData = data.data.filter((ele) => {
+  //   if (ele._id == id) {
+  //     return ele;
+  //   }
+  // });
+  // newData = newData[0];
+  console.log(id);
+  console.log(tit);
+  console.log(description);
+  console.log("ur in page ui");
+  const newData = {
+    "id" : id,
+    "title" : tit,
+    "price" : price,
+    "description" : description,
+    "image" : image,
+    "rating" : rating
 
-  let newData = data.data.filter((ele) => {
-    if (ele._id == id) {
-      return ele;
-    }
-  });
-  newData = newData[0];
+  }
 
   return (
     <>
       <Navbar />
       <div className="productView">
         <div className="productViewLeft">
-          <img className="productMainimg" src={newData.images} alt="product" />
+          <img className="productMainimg" src={image} alt="product" />
           <div>
             <button
               className="AddtoCart btn  btn-lg btn-block"
@@ -45,7 +60,7 @@ export const PageUi = () => {
         <div className="productViewRight">
           <div className="productDiscription text-left">
             <div className="card-title">
-              <h3 className="">saree</h3>
+              <h3 className="">{tit}</h3>
             </div>
 
             <div className="price">
@@ -79,7 +94,8 @@ export const PageUi = () => {
 
           <div className="selectSize"></div>
 
-          <div className="productDetails"></div>
+          <div className="productDetails">{description}</div>
+
           <div className="soldBy trustedPara text-dark">
             <h2 className="soldByHeading text-left">Sold by</h2>
             <div className="viewShop">
