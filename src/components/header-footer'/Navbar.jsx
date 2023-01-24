@@ -1,14 +1,40 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Final } from "../../Pages/Products/final";
 import "./Navbar.css";
 
 export const Navbar = () => {
   const [show, setShow] = useState(null);
+  const [userInput, setUserInput] = useState("");
+  const mensClothings = ["tshirt","jacket", "pants", "jeans"]
+  const womensClothings = ["tops", "kurti","jackets"]
+  const electronics = ["tv","harddrive"]
+  const jewellery = ["bangles","earrings","necklace"]
   const [user, setUser] = useState(0);
   const navigate = useNavigate();
   const linktee = () => {
     navigate("/products");
+  };
+  const categories = (items) => {
+    if(mensClothings.includes(items)){
+      return "men's clothing"
+    }
+    else if(womensClothings.includes(items)){
+      return "women's clothing"
+    }
+    else if(electronics.includes(items)){
+      return "electronics"
+    }
+    else {
+     return "jewelery"
+    }
+  }
+  const navigateProducts = () => {
+     navigate('/products', {text:"electronics"})
+  }
+  const handleChange = e => {
+    setUserInput(e.target.value);
   };
   const logOutUser = () => {
     localStorage.setItem("meesho-user-number", null);
@@ -42,6 +68,8 @@ export const Navbar = () => {
             </div>
             <div id="search-container">
               <span className="glass_Logo">
+              <Link to = "/products" state = {{text:categories(userInput)}}> 
+
                 <svg
                   viewBox="0 0 20 20"
                   fill="greyT2"
@@ -61,12 +89,16 @@ export const Navbar = () => {
                     </clipPath>
                   </defs>
                 </svg>
+                </Link>
               </span>
               <input
                 type="text"
                 placeholder="Try Saree,Kurti or Search by Product Code"
+                value={ userInput }
+                onChange = {handleChange}
                 className="search-input"
               />
+             
             </div>
             <div className="top-right-header-section">
               <div

@@ -10,13 +10,18 @@ import {
   addDATASuccess,
   setProductData,
 } from "../../store/actions";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/header-footer'/Navbar";
 
 export const Final = () => {
   //   const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { text } = location.state;
+
+  console.log("u r in final");
+
   // data = data.data;
   useEffect(() => {
     getData();
@@ -33,11 +38,12 @@ export const Final = () => {
     data: state.addDataReducer.productData,
   }));
   console.log("data", data);
+  console.log(text)
   return (
     <>
       <Navbar />
       <div className="productFullPage" id="proContainer">
-        {data.map(
+        {data.filter((category) => {if(category.category== text){return category}}).map(
           ({
             id,
             title,
